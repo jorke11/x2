@@ -22,4 +22,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['namespace' => 'Api'], function () {
     Route::post('/user/login', 'UserController@login');
     Route::get('/details', 'UserController@details')->middleware('auth:api');
+    Route::resource("binnacle","BinnacleController");
 });
