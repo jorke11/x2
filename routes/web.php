@@ -33,7 +33,32 @@ Route::group(['namespace' => 'Api'], function () {
     Route::get('getRoutesUser', 'RoutesController@getRoutesUser')->middleware('auth:api');
 });
 
+
+Route::get('/api/getCity', 'Administration\SeekController@getCity');
+Route::get('/api/getDepartment', 'Administration\SeekController@getDepartment');
+Route::get('/api/getSupplier', 'Administration\SeekController@getSupplier');
+Route::get('/api/getStakeholder', 'Administration\SeekController@getStakeholder');
+Route::get('/api/getCharacteristic', 'Administration\SeekController@getCharacteristic');
+Route::get('/api/getClient', 'Administration\SeekController@getClient');
+Route::get('/api/getContact', 'Administration\SeekController@getContact');
+Route::get('/api/getWarehouse', 'Administration\SeekController@getWarehouse');
+Route::get('/api/getWarehouseProduct', 'Administration\SeekController@getWarehouseProduct');
+Route::get('/api/getResponsable', 'Administration\SeekController@getResponsable');
+Route::get('/api/getProduct', 'Administration\SeekController@getProduct');
+Route::get('/api/getService', 'Administration\SeekController@getServices');
+Route::get('/api/getCategory', 'Administration\SeekController@getCategory');
+Route::get('/api/getNotification', 'Administration\SeekController@getNotification');
+Route::get('/api/getCommercial', 'Administration\SeekController@getCommercial');
+Route::get('/api/getBranch', 'Administration\SeekController@getBranch');
+Route::get('/api/getAccount', 'Administration\SeekController@getAccount');
+
+
 require __DIR__ . '/administration.php';
+require __DIR__ . '/security.php';
 
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

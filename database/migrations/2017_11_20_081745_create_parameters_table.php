@@ -11,9 +11,15 @@ class CreateParametersTable extends Migration
      *
      * @return void
      */
-    public function up()
-    {
-        //
+     public function up() {
+        Schema::create('parameters', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('description');
+            $table->string('value')->nullable();
+            $table->string('group');
+            $table->integer('code')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -21,8 +27,7 @@ class CreateParametersTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        //
+    public function down() {
+        Schema::dropIfExists('parameters');
     }
 }
