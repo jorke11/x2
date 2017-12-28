@@ -25,6 +25,8 @@ Route::group(['namespace' => 'Api'], function () {
     Route::get('/getUsers', 'UserController@getUsers')->middleware('auth:api');
     Route::get('getUser', 'UserController@getUser')->middleware('auth:api');
     Route::resource("binnacle", "BinnacleController");
+    Route::post("setReport", "BinnacleController@setReport");
+    Route::post("setReportGPS", "BinnacleController@setReportGPS");
     Route::post('newRoute', 'RoutesController@newRoute')->middleware('auth:api');
     Route::get('getRoutes', 'RoutesController@getRoute')->middleware('auth:api');
     Route::post('newPoint', 'PointsController@newPoint')->middleware('auth:api');
@@ -48,13 +50,14 @@ Route::get('/api/getProduct', 'Administration\SeekController@getProduct');
 Route::get('/api/getService', 'Administration\SeekController@getServices');
 Route::get('/api/getCategory', 'Administration\SeekController@getCategory');
 Route::get('/api/getNotification', 'Administration\SeekController@getNotification');
-Route::get('/api/getCommercial', 'Administration\SeekController@getCommercial');
+Route::get('/api/getCommercial', 'Administration\SeekCon    troller@getCommercial');
 Route::get('/api/getBranch', 'Administration\SeekController@getBranch');
 Route::get('/api/getAccount', 'Administration\SeekController@getAccount');
 
 
 require __DIR__ . '/administration.php';
 require __DIR__ . '/security.php';
+require __DIR__ . '/operations.php';
 
 
 

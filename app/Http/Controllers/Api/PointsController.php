@@ -15,6 +15,7 @@ class PointsController extends Controller {
     public function newPoint(Request $req) {
         $in = $req->all();
 
+
         $data = Points::where("route_id", $in["id"])->get();
         foreach ($data as $val) {
             Points::deleted($val->id);
@@ -28,18 +29,22 @@ class PointsController extends Controller {
             $new["latitude"] = $val["latitude"];
             $new["longitude"] = $val["longitude"];
             $id = Points::create($new)->id;
-            $pathdb = url("/qr/" . $in["id"] . "/" . $id . "/point.png");
+            $img = "/qr/" . $in["id"] . "/" . $id . "/point.png";
+            $pathdb = url($img);
             $path = public_path() . "/qr/" . $in["id"] . "/" . $id;
-            File::makeDirectory($path, 0777, true, true);
-            $path.="/point.png";
+
+            $res = File::makeDirectory($path, 0777, true, true);
+            $path .= "/point.png";
+
             QrCode::format("png")->size(100)->generate("route::" . $in["id"] . "-point::" . $id, $path);
             $row = Points::find($id);
+
             $row->qr = $pathdb;
             $row->save();
         }
 
         $data = Points::where("route_id", $in["id"])->get();
-        return response()->json($data);
+        return response()->json(["data" => $data, "status" => true]);
     }
 
     public function getPoints($id) {
@@ -48,7 +53,11 @@ class PointsController extends Controller {
     }
 
     public function pairRoute(Request $req) {
+        
         $in = $req->all();
+        
+        
+        
         $in["days"] = json_encode(array(1, 2));
         $data = Pair::create($in);
         return response()->json($data);
