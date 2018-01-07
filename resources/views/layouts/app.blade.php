@@ -123,6 +123,7 @@
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Operación<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="/routes">Creacion de rutas</a></li>
+                                    <li><a href="/dinamic">Formularios</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
