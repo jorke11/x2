@@ -1,9 +1,9 @@
-<div class="modal fade" tabindex="-1" role="dialog" id='modalNew'>
+<div class="modal fade" role="dialog" id='modalNew'>
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Products</h4>
+                <h4 class="modal-title">Cities</h4>
             </div>
             <div class="modal-body">
                 {!! Form::open(['id'=>'frm']) !!}
@@ -12,7 +12,7 @@
                     <div class="col-lg-12">
                         <div class="form-group">
                             <label for="email">Department</label>
-                            <select class="form-control input-city" id='department_id' name="department_id" data-api="/api/getDepartment" required>
+                            <select class="form-control input-city" id='department_id' name="department_id" data-api="/api/getDepartment" required style="width: 100%">
                             </select>
                         </div>
                     </div>

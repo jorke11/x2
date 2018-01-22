@@ -46,6 +46,35 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="email">Type of Data</label>
+                            <select id="type_data_id" name="type_data_id" class="form-control input-detail">
+                                <option value="0">Selecccione</option>
+                                @foreach($data_types as $val)
+                                <option value="{{$val->code}}">{{$val->description}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>  
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="email">Length</label>
+                            <input type="text" class="form-control input-detail" id="length_text" name='length_text'>
+                        </div>
+                    </div>
+                </div>  
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="email">Required</label>
+                            <input type="checkbox" class="form-control input-detail" id="required_field" name='required_field'>
+                        </div>
+                    </div>
+                </div>
                 {!!Form::close()!!}
             </div>
             <div class="modal-footer">

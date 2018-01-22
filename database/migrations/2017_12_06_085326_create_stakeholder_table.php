@@ -24,6 +24,7 @@ class CreateStakeholderTable extends Migration
             $table->integer('send_city_id')->nullable();
             $table->integer('invoice_city_id')->nullable();
             $table->integer('stakeholder_id')->nullable();
+            $table->integer('sector_id')->nullable();
 
             $table->string('address_send')->nullable();
             $table->string('address_invoice')->nullable();
@@ -43,6 +44,7 @@ class CreateStakeholderTable extends Migration
 
             $table->boolean('shipping_cost')->nullable();
             $table->boolean('special_price')->nullable();
+            $table->boolean('exclude_report')->nullable();
 
             $table->string('password')->nullable();
             $table->string('web_site')->nullable();

@@ -10,6 +10,14 @@ function Dinamic() {
         });
 
         $("#newDetail").click(this.saveDetail);
+
+        $("#type_form_id").change(function () {
+            if ($(this).val() == 1) {
+                $("#length_text, #type_data_id").attr("disabled", true);
+            } else {
+                $("#length_text, #type_data_id").attr("disabled", false);
+            }
+        })
     }
     this.new = function () {
         $(".input-dinamic").cleanFields();
@@ -44,7 +52,7 @@ function Dinamic() {
                 dataType: 'JSON',
                 success: function (data) {
                     if (data.success == true) {
-                        $(".input-dinamic").setFields({data:data.header})
+                        $(".input-dinamic").setFields({data: data.header})
                         $("#modalNew").modal("hide");
                         toastr.success("Ok");
                         obj.printTable(data.detail);
@@ -118,16 +126,36 @@ function Dinamic() {
     this.printTable = function (data) {
         var html = "";
         $("#tblDetail tbody").empty();
+        var required = '';
         $.each(data, function (i, val) {
             html += "<tr>";
-            html+="<td>" + val.label_field + "</td>";
-            html+="<td>" + val.name_field + "</td>";
-            html+="<td>" + val.placeholder_field + "</td>";
-            html+="<td>" + val.type_form + "</td>";
+            html += "<td>" + val.label_field + "</td>";
+            html += "<td>" + val.name_field + "</td>";
+            html += "<td>" + val.placeholder_field + "</td>";
+            html += "<td>" + val.type_form + "</td>";
+            html += "<td>" + val.type_data_input + "</td>";
+            html += "<td>" + val.length_text + "</td>";
+            html += "<td>" + val.required_field + "</td>";
+
+            html += "<td>";
+            html += '<div class="form-group"><label for="pwd">' + val.label_field + ':</label>';
+
+            required = (val.required_field == true) ? 'required' : '';
+
+            if ((val.type_form).toLowerCase() == 'input') {
+                html += '<input type="text" class="form-control" name="' + val.name_field + '" placeholder="' + val.placeholder_field + '" maxlength=' + val.length_text + ' ' + required + ' ></div>';
+            } else if ((val.type_form).toLowerCase() == 'checkbox') {
+                html += '<input type="checkbox" class="form-control" name="' + val.name_field + '" placeholder="' + val.placeholder_field + '" ' + required + '></div>';
+            } else {
+                html += '<textarea class="form-control" name="' + val.name_field + '" placeholder="' + val.placeholder_field + '" ' + required + '></textarea></div>';
+            }
+            html += "</td>";
+
             html += '<td><button class="btn btn-info btn-xs" onclick="obj.editItem(' + val.id + ')"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>';
             html += '<button class="btn btn-danger btn-xs" onclick="obj.deleteItem(' + val.id + ',' + val.dinamic_id + ')"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>';
             html += "</tr>";
         })
+        
         $("#tblDetail tbody").html(html);
 
     }

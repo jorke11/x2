@@ -493,6 +493,8 @@ function Client() {
         var id = $("#frm #id").val();
         var msg = '';
         var validate = $(".input-clients").validate();
+        
+        
         if (validate.length == 0) {
             if (id == '') {
                 method = 'POST';
@@ -541,6 +543,7 @@ function Client() {
         } else {
             $("#btnSave").attr("disabled", false);
             toastr.error("Fields Required!");
+            console.log(validate)
         }
     }
 

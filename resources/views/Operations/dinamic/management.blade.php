@@ -30,7 +30,7 @@
     </div>
 </div>
 <div class="row ">
-    <div class="col-lg-6 col-lg-offset-3">
+    <div class="col-lg-8 col-lg-offset-2">
         <div class="panel panel-default">
             <div class="page-title">
                 <div class="row">
@@ -48,6 +48,10 @@
                         <th>Name</th>
                         <th>Placeholder</th>
                         <th>Type of Form</th>
+                        <th>Type of Data</th>
+                        <th>Length</th>
+                        <th>Required</th>
+                        <th>Example</th>
                         <th>Action</th>
                     </tr>
                 </thead>

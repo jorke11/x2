@@ -47,11 +47,11 @@ function Routes() {
         if (validate.length == 0) {
             if (id == '') {
                 method = 'POST';
-                url = "department";
+                url = "routes";
                 msg = "Created Record";
             } else {
                 method = 'PUT';
-                url = "department/" + id;
+                url = "routes/" + id;
                 msg = "Edited Record";
             }
 

@@ -19,6 +19,9 @@ class CreateDinamicDetailTable extends Migration {
             $table->text('name_field');
             $table->text('placeholder_field');
             $table->integer('type_form_id');
+            $table->integer('type_data_id')->nullable();
+            $table->integer('length_text')->nullable();
+            $table->boolean('required_field')->nullable();
             $table->json('data')->nullable();
             $table->timestamps();
         });

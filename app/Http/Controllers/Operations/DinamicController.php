@@ -17,7 +17,8 @@ class DinamicController extends Controller {
 
     public function index() {
         $parameters = Parameters::where("group", "type_form")->get();
-        return view("Operations.dinamic.init", compact("parameters"));
+        $data_types = Parameters::where("group", "type_data_input")->get();
+        return view("Operations.dinamic.init", compact("parameters", "data_types"));
     }
 
     public function store(Request $request) {
@@ -26,6 +27,7 @@ class DinamicController extends Controller {
             unset($input["id"]);
 //            $user = Auth::User();
 //            $input["users_id"] = 1;
+
 
             $result = Dinamics::create($input)->id;
             if ($result) {
@@ -43,12 +45,12 @@ class DinamicController extends Controller {
             unset($input["id"]);
 //            $user = Auth::User();
 //            $input["users_id"] = 1;
+            $input["required_field"] = (isset($input["required_field"])) ? true : false;
 
             $result = DinamicsDetail::create($input)->id;
             if ($result) {
-                $detail = DinamicsDetail::select("dinamics_detail.id", "dinamics_detail.label_field", "dinamics_detail.name_field"
-                                        , "dinamics_detail.placeholder_field", "parameters.description as type_form")
-                                ->join("parameters", "parameters.code", DB::raw("dinamics_detail.type_form_id"))->where("dinamic_id", $input["dinamic_id"])->get();
+                $detail = $this->getDetail($input["dinamic_id"]);
+
                 return response()->json(['success' => true, "detail" => $detail]);
             } else {
                 return response()->json(['success' => false]);
@@ -56,11 +58,20 @@ class DinamicController extends Controller {
         }
     }
 
+    public function getDetail($id) {
+        
+        return DinamicsDetail::select("dinamics_detail.id", "dinamics_detail.label_field", "dinamics_detail.name_field"
+                                , "dinamics_detail.placeholder_field", "parameters.description as type_form","p.description as type_data_input","dinamics_detail.length_text",
+                "dinamics_detail.required_field")
+                        ->join("parameters", "parameters.code", DB::raw("dinamics_detail.type_form_id and parameters.group='type_form'"))
+                        ->join("parameters as p", "p.code", DB::raw("dinamics_detail.type_form_id and p.group='type_data_input'"))
+                        ->where("dinamic_id", $id)->get();
+    }
+
     public function edit($id) {
         $record = Dinamics::Find($id);
-        $detail = DinamicsDetail::select("dinamics_detail.id", "dinamics_detail.label_field", "dinamics_detail.name_field"
-                                , "dinamics_detail.placeholder_field", "parameters.description as type_form")
-                        ->join("parameters", "parameters.code", DB::raw("dinamics_detail.type_form_id"))->where("dinamic_id", $record->id)->get();
+        $detail = $this->getDetail($id);
+
         return response()->json(["header" => $record, "detail" => $detail]);
     }
 
